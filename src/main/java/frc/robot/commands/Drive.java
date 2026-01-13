@@ -14,6 +14,7 @@ import frc.robot.subsystems.CANDriveSubsystem;
 public class Drive extends Command {
   /** Creates a new Drive. */
   CANDriveSubsystem driveSubsystem;
+
   CommandXboxController controller;
 
   public Drive(CANDriveSubsystem driveSystem, CommandXboxController driverController) {
@@ -25,8 +26,7 @@ public class Drive extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   // The Y axis of the controller is inverted so that pushing the
@@ -35,7 +35,8 @@ public class Drive extends Command {
   // controllable.
   @Override
   public void execute() {
-    driveSubsystem.driveArcade(-controller.getLeftY() * DRIVE_SCALING, -controller.getRightX() * ROTATION_SCALING);
+    driveSubsystem.driveArcade(
+        -controller.getLeftY() * DRIVE_SCALING, -controller.getRightX() * ROTATION_SCALING);
   }
 
   // Called once the command ends or is interrupted.
