@@ -6,6 +6,7 @@ package frc.robot;
 
 import static frc.robot.Constants.OperatorConstants.*;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -17,6 +18,7 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.LaunchSequence;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANFuelSubsystem;
+import org.littletonrobotics.urcl.URCL;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,8 +42,21 @@ public class RobotContainer {
   // The autonomous chooser
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
+  private static final String[] GIT_FLAG = {"clean", "dirty"};
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    DataLogManager.start();
+    URCL.start();
+
+    // log build information
+    DataLogManager.log("Git branch: " + BuildConstants.GIT_BRANCH);
+    DataLogManager.log("Git date: " + BuildConstants.GIT_DATE);
+    DataLogManager.log("Git hash: " + BuildConstants.GIT_SHA);
+    DataLogManager.log("Git branch status: " + GIT_FLAG[BuildConstants.DIRTY]);
+    DataLogManager.log("Build date: " + BuildConstants.BUILD_DATE);
+
     configureBindings();
 
     // Set the options to show up in the Dashboard for selecting auto modes. If you
